@@ -1,11 +1,36 @@
 <?php
-   $schools = [
+    $schools = [
        "Bellville Primary School", 
        "Kasselsvlei Primary",
        "Rouxville Primary School",
        "Soneike Private School",
        "Good Hope Primary School"
        ];
+   
+    $grades = range(1, 9);
+   
+    $action = filter_input(INPUT_POST, 'action');
+    
+    if ($action == 'register') {
+        $name = filter_input(INPUT_POST, 'name');
+        $surname = filter_input(INPUT_POST, 'surname');
+        $school = filter_input(INPUT_POST, 'school');
+        $grade = filter_input(INPUT_POST, 'grade', FILTER_VALIDATE_INT);
+        $subjects = filter_input(INPUT_POST, 'subjects', FILTER_SANITIZE_SPECIAL_CHARS, FILTER_REQUIRE_ARRAY);
+        
+        if ($name == NULL || $surname == FALSE || $school == NULL || $grade == NULL || $subjects === NULL) {
+            $error = "Form is incomplete. Check all fields and try again.";
+        } else { 
+            $amount_due = 40.00 + (count($subjects) * 20.00);
+            $message = "Registration successful! See below for details: \n\n"
+                . "Name: $name \n"
+                . "Surname: $surname \n"
+                . "School: $school \n"
+                . "Grade: $grade \n"
+                . "Subject(s): " . implode(', ', $subjects) . "\n"
+                . "Amount due: R $amount_due "; 
+        }
+    }
    
 ?>
 
@@ -58,7 +83,7 @@
             </td>
             <td>
                 <select name="grade">
-                <?php foreach (range(1, 9) as $grade) : ?>
+                <?php foreach ($grades as $grade) : ?>
                     <option value="<?php echo $grade; ?>">
                         <?php echo $grade; ?>
                     </option>
@@ -71,27 +96,27 @@
                 <label>Subjects:</label>
             </td>
             <td>
-                <input type="checkbox" name="mathematics"> 
+                <input type="checkbox" name="subjects[]" value="Mathematics"> 
                 <label>Mathematics</label>
                 <br>
                 
-                <input type="checkbox" name="robotics"> 
+                <input type="checkbox" name="subjects[]" value="Robotics"> 
                 <label>Robotics</label>
                 <br>
                 
-                <input type="checkbox" name="life_skills"> 
+                <input type="checkbox" name="subjects[]" value="Life skills"> 
                 <label>Life Skills</label>
                 <br>
                 
-                <input type="checkbox" name="general_knowledge"> 
+                <input type="checkbox" name="subjects[]" value="General knowledge"> 
                 <label>General Knowledge</label>
                 <br>
                 
-                <input type="checkbox" name="arts"> 
+                <input type="checkbox" name="subjects[]" value="Arts"> 
                 <label>Arts</label>
                 <br>
                 
-                <input type="checkbox" name="bible_study"> 
+                <input type="checkbox" name="subjects[]" value="Bible study"> 
                 <label>Bible Study</label>
                 <br>
             </td>
@@ -105,8 +130,17 @@
             </td>
         </tr>
         </table>
-        <br>
     </form>
+    
+    <?php if($error !== NULL): ?>
+        <h2>Error:</h2>
+        <p><?php echo $error; ?></p>
+    <?php elseif ($message !== NULL) : ?>
+        <h2>Message:</h2>
+        <p><?php echo nl2br(htmlspecialchars($message)); ?></p>
+    <?php endif; ?>
+    
+    <br>
     
 </body>
 <footer>
