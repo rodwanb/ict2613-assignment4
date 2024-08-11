@@ -1,18 +1,18 @@
-<?php
-
-?>
-
 <!DOCTYPE html>
 <html>
     <head>
         <title>Assignment 4 - Task 2</title>
         <style>
-            tr, td {
+            tr, td, th {
                 padding: 5px;
             } 
             
             tr {
-                vertical-align:top
+                vertical-align:top;
+            }
+            
+            th {
+                text-align:left;
             }
         </style>
     </head>
@@ -53,8 +53,52 @@
                 <td>
                     <label>b)</label>
                 </td>
-                <td >
-                    
+                <td>
+                    <table id="tableA" border="1" style="border-collapse: collapse;">
+                        <?php
+                        function evaluateAssessment(string $proctoring_status, bool $suspicious_activity_status) {
+                            return $proctoring_status == "pass" ? "Release marks" : ($suspicious_activity_status ? "Disciplinary case" : "Supplementary/cancel exam");
+                        }
+                        ?>
+                        <tr>
+                            <th>Proctoring status</th>
+                            <th>Suspicious activity status</th>
+                            <th>Outcome</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>fail</label>
+                            </td>
+                            <td>
+                                <label>false</label>
+                            </td>
+                            <td>
+                                <label><?php echo evaluateAssessment("fail", false); ?></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>fail</label>
+                            </td>
+                            <td>
+                                <label>true</label>
+                            </td>
+                            <td>
+                                <label><?php echo evaluateAssessment("fail", true); ?></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>pass</label>
+                            </td>
+                            <td>
+                                <label>false</label>
+                            </td>
+                            <td>
+                                <label><?php echo evaluateAssessment("pass", false); ?></label>
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
         </table>
