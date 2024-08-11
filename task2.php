@@ -69,19 +69,7 @@
 <html>
     <head>
         <title>Assignment 4 - Task 2</title>
-        <style>
-            tr, td, th {
-                padding: 5px;
-            } 
-            
-            tr {
-                vertical-align:top;
-            }
-            
-            th {
-                text-align:left;
-            }
-        </style>
+        <link rel="stylesheet" href="styles.css">
     </head>
 
     <body>
@@ -95,7 +83,7 @@
                     <label>a)</label>
                 </td>
                 <td>
-                    <table id="tableA" border="1" style="border-collapse: collapse;">
+                    <table border="1" style="border-collapse: collapse;">
                         <?php 
                         $index = 1;
                         while ($index <= 12): ?>
@@ -119,7 +107,7 @@
                     <label>b)</label>
                 </td>
                 <td>
-                    <table id="tableA" border="1" style="border-collapse: collapse;">
+                    <table border="1" style="border-collapse: collapse;">
                         <tr>
                             <th>Proctoring status</th>
                             <th>Suspicious activity status</th>

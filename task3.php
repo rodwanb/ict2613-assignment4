@@ -25,24 +25,26 @@
         
         return "The local part is $local_part, and the domain parts are $remaining_domain_parts and $first_domain_part.";
     }
+    
+    //////////////////////////////Task 3(b) //////////////////////////
+    // List of input date formats to use in task 3b
+    const DATE_FORMATS = [
+        'd-m-Y', 
+        'D j M Y',
+        'l, d, F, Y'
+    ];
+    
+    // Current date
+    $now = new DateTime();
+    
+    // Next monday
+    $next_monday = new DateTime('next monday');
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Assignment 4 - Task 3</title>
-    <style>
-        tr, td, th {
-            padding: 5px;
-        } 
-
-        tr {
-            vertical-align:top;
-        }
-
-        th {
-            text-align:left;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
@@ -64,6 +66,34 @@
                             </td>
                             <td>
                                 <label><?php echo examineEmail($email); ?></label>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <!--//////////////////////////////Task 3(b) //////////////////////////-->
+            <td>
+                <label>b)</label>
+            </td>
+            <td>
+                <table border="1" style="border-collapse: collapse;">
+                    <tr>
+                        <th>Format</th>
+                        <th>Today</th>
+                        <th>Next Monday</th>
+                    </tr>
+                    <?php foreach (DATE_FORMATS as $format): ?>
+                        <tr>
+                            <td>
+                                <label><?php echo $format; ?></label>
+                            </td>
+                            <td>
+                                <label><?php echo $now->format($format); ?></label>
+                            </td>
+                            <td>
+                                <label><?php echo $next_monday->format($format); ?></label>
                             </td>
                         </tr>
                     <?php endforeach; ?>

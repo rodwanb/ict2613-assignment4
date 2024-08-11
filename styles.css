@@ -1,0 +1,11 @@
+tr, td, th {
+    padding: 5px;
+} 
+
+tr {
+    vertical-align:top;
+}
+
+th {
+    text-align:left;
+}
