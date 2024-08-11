@@ -1,3 +1,70 @@
+<?php
+    /****************************************************************
+     * Author:  Rodwan Barbier
+     * Purpose: Assignment 4 - Task 2
+     * 
+     ****************************************************************/
+
+    //////////////////////////////Task 2(a) //////////////////////////
+    // Multiplier to be used in times table
+    const MULTIPLIER = 5;
+    
+    //////////////////////////////Task 2(b) //////////////////////////
+    // function to evaluate outcome based on proctoring status and 
+    // suspicious activity of student
+    function evaluateAssessment(string $proc_status, bool $sus_activity) {
+        return $proc_status == "pass" 
+                ? "Release marks" 
+                : ($sus_activity 
+                    ? "Disciplinary case" 
+                    : "Supplementary/cancel exam");
+    }
+    
+    //////////////////////////////Task 2(c) //////////////////////////
+    // 11 official languages to be used in form selection
+    const LANGUAGES = [
+        "English", "Afrikaans", "Northern Sotho", "IsiZulu",
+        "IsiXhosa", "Sesotho", "IsiNdebele", "Setswana",
+        "SiSwati", "Tshivenda", "Xitsonga"
+    ];
+    
+    // incoming action from form submission
+    $action = filter_input(INPUT_POST, 'action');
+    
+    // determine greeting based on selected language.
+    if ($action == 'greet') {
+        $selected_language = filter_input(INPUT_POST, 'language');
+        switch ($selected_language) {
+            case 'English': 
+                $greeting = "Hello";
+                break;
+            case 'Afrikaans':
+                $greeting = "Hallo";
+                break;
+            case 'Northern Sotho':
+            case 'Sesotho':
+            case 'Setswana':
+                $greeting = "Dumela";
+                break;
+            case 'IsiZulu':
+            case 'SiSwati':
+                $greeting = "Sawubona";
+                break;
+            case 'IsiXhosa':
+                $greeting = "Molo";
+                break;
+            case 'IsiNdebele':
+                $greeting = "Lotjhani/Salibonani";
+                break;
+            case 'Tshivenda':
+                $greeting = "Ndaa!/Aa! ";
+                break;
+            case 'Xitsonga':
+                $greeting = "Xewani";
+                break;
+        }
+    }
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,7 +86,6 @@
 
     <body>
         <?php include 'menu.inc'; ?>
-        
         <br>
         <br>
         <table>
@@ -31,7 +97,6 @@
                 <td>
                     <table id="tableA" border="1" style="border-collapse: collapse;">
                         <?php 
-                        const MULTIPLIER = 5;
                         $index = 1;
                         while ($index <= 12): ?>
                             <tr>
@@ -55,11 +120,6 @@
                 </td>
                 <td>
                     <table id="tableA" border="1" style="border-collapse: collapse;">
-                        <?php
-                        function evaluateAssessment(string $proctoring_status, bool $suspicious_activity_status) {
-                            return $proctoring_status == "pass" ? "Release marks" : ($suspicious_activity_status ? "Disciplinary case" : "Supplementary/cancel exam");
-                        }
-                        ?>
                         <tr>
                             <th>Proctoring status</th>
                             <th>Suspicious activity status</th>
@@ -99,6 +159,31 @@
                             </td>
                         </tr>
                     </table>
+                </td>
+            </tr>
+            <tr>
+                <!--//////////////////////////////Task 2(c) //////////////////////////-->
+                <td>
+                    <label>c)</label>
+                </td>
+                <td>
+                    <form action="task2.php" method="post" id="2c_form">
+                        <input type="hidden" name="action" value="greet">
+                        
+                        <select name="language">
+                            <?php foreach (LANGUAGES as $language) : ?>
+                            <option value="<?php echo $language; ?>" <?php if (filter_input(INPUT_POST, 'language') == $language) echo 'selected="selected" '; ?> >
+                                    <?php echo $language; ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                      
+                        <input type="submit" value="Submit" />
+                        
+                        <label>&nbsp;</label>
+                        
+                        <label><?php echo $greeting; ?></label>
+                    </form>
                 </td>
             </tr>
         </table>
