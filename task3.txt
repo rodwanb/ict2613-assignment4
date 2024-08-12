@@ -58,6 +58,29 @@
             $largest_string = $language;
         }
     }
+    
+    //////////////////////////////Task 3(d) //////////////////////////
+    // associative array for greeting by language
+    $greeting_by_language = [
+        'English' => 'Hello',
+        'Afrikaans' => 'Hallo',
+        'Northern Sotho' => 'Dumela',
+        'Sesotho' => 'Dumela',
+        'Setswana' => 'Dumela',
+        'IsiXhosa' => 'Molo',
+        'IsiNdebele' => 'Lotjhani/Salibonani',
+        'Tshivenda' => 'Ndaa!/Aa!',
+        'Xitsonga' => 'Xewani'
+    ];
+    
+    // incoming action from form submission
+    $action = filter_input(INPUT_POST, 'action');
+    
+    // determine greeting based on selected language.
+    if ($action == 'greet') {
+        $selected_language = filter_input(INPUT_POST, 'language');
+        $greeting = $greeting_by_language[$selected_language];
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -149,6 +172,31 @@
                         </td>
                     </tr>
                 </table>
+            </td>
+        </tr>
+        <tr>
+            <!--//////////////////////////////Task 3(d) //////////////////////////-->
+            <td>
+                <label>d)</label>
+            </td>
+            <td>
+                <form action="task3.php" method="post">
+                    <input type="hidden" name="action" value="greet">
+
+                    <select name="language">
+                        <?php foreach ($sorted_languages as $language) : ?>
+                            <option value="<?php echo $language; ?>" <?php if (filter_input(INPUT_POST, 'language') == $language) echo 'selected="selected" '; ?> >
+                                <?php echo $language; ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+
+                    <input type="submit" value="Submit" />
+
+                    <label>&nbsp;</label>
+
+                    <label><?php echo $greeting; ?></label>
+                </form>
             </td>
         </tr>
     </table>
