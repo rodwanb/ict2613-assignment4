@@ -39,6 +39,25 @@
     
     // Next monday
     $next_monday = new DateTime('next monday');
+    
+    //////////////////////////////Task 3(c) //////////////////////////
+    // 11 official languages
+    $languages = [
+        "English", "Afrikaans", "Northern Sotho", "IsiZulu",
+        "IsiXhosa", "Sesotho", "IsiNdebele", "Setswana",
+        "SiSwati", "Tshivenda", "Xitsonga"
+    ];    
+    
+    // making a copy of array and sorting the copy.
+    $sorted_languages = $languages;
+    sort($sorted_languages);
+    
+    $largest_string = "";
+    foreach ($sorted_languages as $language) {
+        if (strlen($language) > strlen($largest_string)) {
+            $largest_string = $language;
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -97,6 +116,38 @@
                             </td>
                         </tr>
                     <?php endforeach; ?>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <!--//////////////////////////////Task 3(c) //////////////////////////-->
+            <td>
+                <label>c)</label>
+            </td>
+            <td>
+                <table border="1" style="border-collapse: collapse;">
+                    <tr>
+                        <th>Unsorted array</th>
+                        <th>Sorted array</th>
+                        <th>Longest string</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <?php foreach ($languages as $language): ?>
+                                <label><?php echo $language; ?></label>
+                                <br>
+                            <?php endforeach; ?>
+                        </td>
+                        <td>
+                            <?php foreach ($sorted_languages as $language): ?>
+                                <label><?php echo $language; ?></label>
+                                <br>
+                            <?php endforeach; ?>
+                        </td>
+                        <td>
+                            <label><?php echo $largest_string; ?></label>
+                        </td>
+                    </tr>
                 </table>
             </td>
         </tr>
