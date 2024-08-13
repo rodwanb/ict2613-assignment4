@@ -59,6 +59,28 @@
                 add_learner($name, $surname, $gender, $dateOfBirth);
                 header("Location: task4.php?action=list_learner");
             }
+            break;
+        case 'show_edit_learner':
+            $learner_id = filter_input(INPUT_GET, 'learner_id');
+            $learner = get_learner($learner_id);
+            include('view/learner_edit.php');
+            break;
+        case 'update_learner':
+            $learner_id = filter_input(INPUT_POST, 'learner_id', FILTER_SANITIZE_STRING);
+            $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+            $surname = filter_input(INPUT_POST, 'surname', FILTER_SANITIZE_STRING);
+            $gender = filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_STRING);
+            $date_of_birth = filter_input(INPUT_POST, 'date_of_birth');
+            if ($learner_id == NULL || $name == NULL || $surname == NULL || $gender == NULL || $date_of_birth == NULL) {
+                $error_message = "learner_id = $learner_id; name = $name; surname = $surname; gender = $gender; date_of_birth = $date_of_birth";
+//                $error_message = "Invalid learner data. Check all fields and try again.";
+                include('view/error.php');
+            } else { 
+                update_learner($learner_id, $name, $surname, $gender, $date_of_birth);
+                header("Location: task4.php?action=list_learner");
+            }
+            break;
+
         case 'delete_learner':
             $learner_id = filter_input(INPUT_POST, 'learner_id', FILTER_VALIDATE_INT);
             if ($learner_id == NULL || $learner_id == FALSE) {
@@ -68,5 +90,6 @@
                 delete_learner($learner_id);
                 header('Location: task4.php?action=list_learner');
             }
+            break;
     }
 ?>
