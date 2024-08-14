@@ -8,6 +8,26 @@ function get_events() {
     return $statement;    
 }
 
+function get_upcoming_events() {
+    global $db;
+    $query = 'SELECT * FROM events
+              WHERE endDateTime >= CURDATE()
+              ORDER BY eventID';
+    $statement = $db->prepare($query);
+    $statement->execute();
+    return $statement;    
+}
+
+function get_past_events() {
+    global $db;
+    $query = 'SELECT * FROM events
+              WHERE endDateTime < CURDATE()
+              ORDER BY eventID';
+    $statement = $db->prepare($query);
+    $statement->execute();
+    return $statement;    
+}
+
 function get_event($event_id) {
     global $db;
     $query = 'SELECT * FROM events
@@ -20,41 +40,38 @@ function get_event($event_id) {
     return $result;
 }
 
-function add_event($title, $description, $date, $start_time, $end_time) {
+function add_event($title, $description, $start_date_time, $end_date_time) {
     global $db;
     $query = 'INSERT INTO events
-                 (title, description, date, startTime, endTime)
+                 (title, description, startDateTime, endDateTime)
               VALUES
-                 (:title, :description, :date, :start_time, :end_time)';
+                 (:title, :description, :start_date_time, :end_date_time)';
     $statement = $db->prepare($query);
     $statement->bindValue(':title', $title);
     $statement->bindValue(':description', $description);
-    $statement->bindValue(':date', $date);
-    $statement->bindValue(':start_time', $start_time);
-    $statement->bindValue(':end_time', $end_time);
+    $statement->bindValue(':start_date_time', $start_date_time);
+    $statement->bindValue(':end_date_time', $end_date_time);
     $statement->execute();
     $statement->closeCursor();
 }
 
-function update_event($event_id, $title, $description, $date, $start_time, $end_time) {
+function update_event($event_id, $title, $description, $start_date_time, $end_date_time) {
     global $db;
     $query = 'UPDATE 
                 events
               SET 
                 title = :title,
                 description = :description,
-                date = :date,
-                startTime = :start_time,
-                endTime = :end_time
+                startDateTime = :start_date_time,
+                endDateTime = :end_date_time
               WHERE
                 eventID = :event_id';
     $statement = $db->prepare($query);
     $statement->bindValue(':event_id', $event_id);
     $statement->bindValue(':title', $title);
     $statement->bindValue(':description', $description);
-    $statement->bindValue(':date', $date);
-    $statement->bindValue(':start_time', $start_time);
-    $statement->bindValue(':end_time', $end_time);
+    $statement->bindValue(':start_date_time', $start_date_time);
+    $statement->bindValue(':end_date_time', $end_date_time);
     $statement->execute();
     $statement->closeCursor();
 }

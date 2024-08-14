@@ -7,43 +7,39 @@
     </aside>
 
     <section style="float: left;">
-        <!-- display a table of events -->
         <br>
-        <h1>Upcoming events</h1>
+        <h1>Past events</h1>
         <table border="1" style="border-collapse: collapse;">
             <tr>
+                <th>ID</th>
                 <th>Title</th>
                 <th>Description</th>
                 <th>Date</th>
                 <th>Start time</th>
                 <th>End time</th>
-                <th>&nbsp;</th>
+                <th>Actions</th>
             </tr>
             <?php foreach ($events as $event) : ?>
                 <tr>
+                    <td><?php echo $event['eventID']; ?></td>
                     <td><?php echo $event['title']; ?></td>
                     <td><?php echo $event['description']; ?></td>
-                    <td><?php echo $event['date']; ?></td>
-                    <td><?php echo $event['start_time']; ?></td>
-                    <td><?php echo $event['end_time']; ?></td>
+                    <td><?php echo date('j F Y', strtotime($event['startDateTime'])); ?></td>
+                    <td><?php echo date('H:i', strtotime($event['startDateTime'])); ?></td>
+                    <td><?php echo date('H:i', strtotime($event['endDateTime'])) ?></td>
                     <td>
                         <label>
-                            <form action="." method="post">
-                                <input type="hidden" name="action"
-                                       value="delete_product">
-                                <input type="hidden" name="product_id"
-                                       value="<?php echo $product['productID']; ?>">
-                                <input type="hidden" name="category_id"
-                                       value="<?php echo $product['categoryID']; ?>">
-                                <input type="submit" value="Edit">
-                                <input type="submit" value="Delete">
+                            <form method="get" style="float: left; margin: 2px;">
+                                <input type="hidden" name="action" value="show_edit_event">
+                                <input type="hidden" name="event_id" value="<?php echo $event['eventID']; ?>">
+                                <input type="submit" value="View" >
                             </form>
                         </label>
                     </td>
                 </tr>
             <?php endforeach; ?>
         </table>
-        <p><a href="index.php?action=show_add_form">Add Event</a></p>
+        <br><br>
     </section>
 </main>
 <?php include('footer.php'); ?>

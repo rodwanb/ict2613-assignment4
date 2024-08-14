@@ -24,9 +24,9 @@
                     <td><?php echo $event['eventID']; ?></td>
                     <td><?php echo $event['title']; ?></td>
                     <td><?php echo $event['description']; ?></td>
-                    <td><?php echo date('j F Y', strtotime($event['date'])); ?></td>
-                    <td><?php echo date('H:i', strtotime($event['startTime'])); ?></td>
-                    <td><?php echo date('H:i', strtotime($event['endTime'])) ?></td>
+                    <td><?php echo date('j F Y', strtotime($event['startDateTime'])); ?></td>
+                    <td><?php echo date('H:i', strtotime($event['startDateTime'])); ?></td>
+                    <td><?php echo date('H:i', strtotime($event['endDateTime'])) ?></td>
                     <td>
                         <label>
                             <form method="get" style="float: left; margin: 2px;">

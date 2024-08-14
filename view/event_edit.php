@@ -35,7 +35,7 @@
                         <label>Date:</label>
                     </td>
                     <td>
-                        <input type="date" name="date" value="<?php echo htmlspecialchars($event['date']); ?>" />
+                        <input type="date" name="date" value="<?php echo date('Y-m-d', strtotime($event['startDateTime'])); ?>" />
                     </td>
                 </tr>
                 <tr>
@@ -43,7 +43,7 @@
                         <label>Start time:</label>
                     </td>
                     <td>
-                        <input type="time" name="start_time" value="<?php echo date('H:i', strtotime(htmlspecialchars($event['startTime']))); ?>" />
+                        <input type="time" name="start_time" value="<?php echo date('H:i', strtotime(htmlspecialchars($event['startDateTime']))); ?>" />
                     </td>
                 </tr>
                 <tr>
@@ -51,7 +51,7 @@
                         <label>End time:</label>
                     </td>
                     <td>
-                        <input type="time" name="end_time" value="<?php echo date('H:i', strtotime(htmlspecialchars($event['endTime']))); ?>" />
+                        <input type="time" name="end_time" value="<?php echo date('H:i', strtotime(htmlspecialchars($event['endDateTime']))); ?>" />
                     </td>
                 </tr>
                 <tr>
@@ -65,7 +65,7 @@
             </table>            
         </form>
         <p>
-            <a href="?action=list_upcoming_events">Cancel</a>
+            <a href="?action=list_upcoming_event">Cancel</a>
         </p>
     </section>
 </main>

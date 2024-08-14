@@ -14,10 +14,11 @@
     switch ($action) {
         //////////////// events //////////////////
         case 'list_upcoming_event':
-            $events = get_events();
+            $events = get_upcoming_events();
             include('view/event_list_upcoming.php');
             break;
         case 'list_past_event':
+            $events = get_past_events();
             include('view/event_list_past.php');
             break;
         case 'show_add_event':
@@ -26,14 +27,18 @@
         case 'add_event':
             $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);
             $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING);
-            $date = filter_input(INPUT_POST, 'date');
-            $start_time = filter_input(INPUT_POST, 'start_time');
-            $end_time = filter_input(INPUT_POST, 'end_time');
-            if ($title == NULL || $description == NULL || $date == NULL ||  $start_time == NULL ||  $end_time == NULL) {
+            $date = filter_input(INPUT_POST, 'date');            
+            $start_time = date('H:i:s', strtotime(filter_input(INPUT_POST, 'start_time')));
+            $end_time = date('H:i:s', strtotime(filter_input(INPUT_POST, 'end_time')));
+                    
+            $start_date_time = date('Y-m-d H:i:s', strtotime("$date $start_time"));            
+            $end_date_time = date('Y-m-d H:i:s', strtotime("$date $end_time"));
+            
+            if ($title == NULL || $description == NULL || $start_date_time == NULL ||  $end_date_time == NULL) {
                 $error_message = "Invalid event data. Check all fields and try again.";
                 include('view/error.php');
             } else { 
-                add_event($title, $description, $date, $start_time, $end_time);
+                add_event($title, $description, $start_date_time, $end_date_time);
                 header("Location: task4.php?action=list_upcoming_event");
             }
             break;
@@ -46,14 +51,18 @@
             $event_id = filter_input(INPUT_POST, 'event_id', FILTER_SANITIZE_STRING);
             $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);
             $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING);
-            $date = filter_input(INPUT_POST, 'date');
-            $start_time = filter_input(INPUT_POST, 'start_time');
-            $end_time = filter_input(INPUT_POST, 'end_time');
-            if ($event_id == NULL || $title == NULL || $description == NULL || $date == NULL ||  $start_time == NULL ||  $end_time == NULL) {
+            $date = filter_input(INPUT_POST, 'date');            
+            $start_time = date('H:i:s', strtotime(filter_input(INPUT_POST, 'start_time')));
+            $end_time = date('H:i:s', strtotime(filter_input(INPUT_POST, 'end_time')));
+                    
+            $start_date_time = date('Y-m-d H:i:s', strtotime("$date $start_time"));            
+            $end_date_time = date('Y-m-d H:i:s', strtotime("$date $end_time"));
+            
+            if ($event_id == NULL || $title == NULL || $description == NULL || $start_date_time == NULL ||  $end_date_time == NULL) {
                 $error_message = "Invalid event data. Check all fields and try again.";
                 include('view/error.php');
             } else { 
-                update_event($event_id, $title, $description, $date, $start_time, $end_time);
+                update_event($event_id, $title, $description, $start_date_time, $end_date_time);
                 header("Location: task4.php?action=list_upcoming_event");
             }
             break;
