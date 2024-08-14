@@ -8,45 +8,50 @@
 
     <section style="float: left;">
         <br>
-        <h1>Edit Learner</h1>
+        <h1>Add Event</h1>
         <form action="task4.php" method="post">
-            <input type="hidden" name="action" value="update_learner">
-            <input type="hidden" name="learner_id" value="<?php echo $learner['learnerID'] ?>">
+            <input type="hidden" name="action" value="add_event">
             
             <table border="0">
                 <tr>
                     <td>
-                        <label>Name:</label>
+                        <label>Title:</label>
                     </td>
                     <td>
-                        <input type="text" name="name" value="<?php echo htmlspecialchars($learner['name']); ?>"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label>Surname:</label>
-                    </td>
-                    <td>
-                        <input type="text" name="surname" value="<?php echo htmlspecialchars($learner['surname']); ?>"/>
+                        <input type="text" name="title" />
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <label>Gender:</label>
+                        <label>Description:</label>
                     </td>
                     <td>
-                        <select name="gender">
-                            <option value="Male" <?php if ($learner['gender'] == "Male") echo 'selected'; ?> >Male</option>
-                            <option value="Female" <?php if ($learner['gender'] == "Female") echo 'selected'; ?> >Female</option>
-                        </select>
+                        <!--<input type="text" name="description" />-->
+                        <textarea name="description" rows="5" cols="16"></textarea>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <label>Date of birth:</label>
+                        <label>Date:</label>
                     </td>
                     <td>
-                        <input type="date" name="date_of_birth" value="<?php echo htmlspecialchars($learner['dateOfBirth']); ?>" />
+                        <input type="date" name="date" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Start time:</label>
+                    </td>
+                    <td>
+                        <input type="time" name="start_time" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>End time:</label>
+                    </td>
+                    <td>
+                        <input type="time" name="end_time" />
                     </td>
                 </tr>
                 <tr>
@@ -54,13 +59,13 @@
                         <label>&nbsp;</label>
                     </td>
                     <td>
-                        <input type="submit" value="Save" />
+                        <input type="submit" value="Add Event" />
                     </td>
                 </tr>
             </table>            
         </form>
         <p>
-            <a href="?action=list_learner">Back to list</a>
+            <a href="?action=list_upcoming_events">Back to list</a>
         </p>
     </section>
 </main>
