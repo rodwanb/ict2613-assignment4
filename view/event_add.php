@@ -65,7 +65,7 @@
             </table>            
         </form>
         <p>
-            <a href="?action=list_upcoming_events">Back to list</a>
+            <a href="?action=list_upcoming_event">Cancel</a>
         </p>
     </section>
 </main>

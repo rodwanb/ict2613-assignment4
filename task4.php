@@ -2,6 +2,7 @@
     require('model/database.php');
     require('model/learner_db.php');
     require('model/event_db.php');
+    require('model/booking_db.php');
     
     $action = filter_input(INPUT_POST, 'action');
     if ($action == NULL) {
@@ -76,7 +77,31 @@
                 header('Location: task4.php?action=list_upcoming_event');
             }
             break;
-        //////////////// events //////////////////
+        //////////////// bookings //////////////////
+        case 'show_add_booking':
+            $event_id = filter_input(INPUT_GET, 'event_id');
+            $event = get_event($event_id);
+            $learners = get_learners();
+            include('view/booking_add.php');
+            break;
+        case 'add_booking':
+            $event_id = filter_input(INPUT_POST, 'event_id');
+            $learner_id = filter_input(INPUT_POST, 'learner_id');
+            $booker_name = filter_input(INPUT_POST, 'booker_name', FILTER_SANITIZE_STRING);
+            $booker_email = filter_input(INPUT_POST, 'booker_email', FILTER_SANITIZE_EMAIL);
+            $booker_cell_number = filter_input(INPUT_POST, 'booker_cell_number', FILTER_SANITIZE_STRING);
+            $number_of_attendees = filter_input(INPUT_POST, 'number_of_attendees', FILTER_SANITIZE_NUMBER_INT);
+            
+            if ($event_id == NULL || $learner_id == NULL || $booker_name == NULL 
+                    ||  $booker_email == NULL || $booker_cell_number == null || $number_of_attendees == NULL) {
+                $error_message = "Invalid booking data. Check all fields and try again.";
+                include('view/error.php');
+            } else { 
+                add_booking($learner_id, $event_id, $booker_name, $booker_email, $booker_cell_number, $number_of_attendees);
+                header("Location: task4.php?action=list_upcoming_event");
+            }
+            break;
+        //////////////// learners //////////////////
         case 'list_learner':
             $learners = get_learners();
             include('view/learner_list.php');
@@ -109,7 +134,6 @@
             $gender = filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_STRING);
             $date_of_birth = filter_input(INPUT_POST, 'date_of_birth');
             if ($learner_id == NULL || $name == NULL || $surname == NULL || $gender == NULL || $date_of_birth == NULL) {
-//                $error_message = "learner_id = $learner_id; name = $name; surname = $surname; gender = $gender; date_of_birth = $date_of_birth";
                 $error_message = "Invalid learner data. Check all fields and try again.";
                 include('view/error.php');
             } else { 

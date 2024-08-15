@@ -40,6 +40,12 @@
                                 <input type="hidden" name="event_id" value="<?php echo $event['eventID']; ?>">
                                 <input type="submit" value="Delete" >
                             </form>
+                            
+                            <form method="get" style="float: left; margin: 2px;">
+                                <input type="hidden" name="action" value="show_add_booking">
+                                <input type="hidden" name="event_id" value="<?php echo $event['eventID']; ?>">
+                                <input type="submit" value="Book" >
+                            </form>
                         </label>
                     </td>
                 </tr>

@@ -59,7 +59,7 @@
             </table>            
         </form>
         <p>
-            <a href="?action=list_learner">Back to list</a>
+            <a href="?action=list_learner">Cancel</a>
         </p>
     </section>
 </main>
