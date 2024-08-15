@@ -48,6 +48,11 @@
             $event = get_event($event_id);
             include('view/event_edit.php');
             break;
+        case 'show_event_summary':
+            $event_id = filter_input(INPUT_GET, 'event_id');
+            $event = get_event_with_booking_summary($event_id);
+            include('view/event_summary.php');
+            break;
         case 'update_event':
             $event_id = filter_input(INPUT_POST, 'event_id', FILTER_SANITIZE_STRING);
             $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);

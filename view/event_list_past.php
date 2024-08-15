@@ -30,9 +30,9 @@
                     <td>
                         <label>
                             <form method="get" style="float: left; margin: 2px;">
-                                <input type="hidden" name="action" value="show_edit_event">
+                                <input type="hidden" name="action" value="show_event_summary">
                                 <input type="hidden" name="event_id" value="<?php echo $event['eventID']; ?>">
-                                <input type="submit" value="View" >
+                                <input type="submit" value="Summary" >
                             </form>
                         </label>
                     </td>

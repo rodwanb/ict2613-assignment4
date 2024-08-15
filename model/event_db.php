@@ -40,6 +40,21 @@ function get_event($event_id) {
     return $result;
 }
 
+function get_event_with_booking_summary($event_id) {
+    global $db;
+    $query = 'SELECT title, description, startDateTime, endDateTime, COALESCE(SUM(numberOfAttendees), 0) AS numberOfAttendees
+              FROM events 
+              INNER JOIN bookings 
+              ON bookings.eventID = events.eventID 
+              WHERE events.eventID = :event_id';
+    $statement = $db->prepare($query);
+    $statement->bindValue(':event_id', $event_id);
+    $statement->execute();
+    $result = $statement->fetch();
+    $statement->closeCursor();
+    return $result;
+}
+
 function add_event($title, $description, $start_date_time, $end_date_time) {
     global $db;
     $query = 'INSERT INTO events
