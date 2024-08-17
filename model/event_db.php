@@ -44,7 +44,7 @@ function get_event_with_booking_summary($event_id) {
     global $db;
     $query = 'SELECT title, description, startDateTime, endDateTime, COALESCE(SUM(numberOfAttendees), 0) AS numberOfAttendees
               FROM events 
-              INNER JOIN bookings 
+              LEFT JOIN bookings 
               ON bookings.eventID = events.eventID 
               WHERE events.eventID = :event_id';
     $statement = $db->prepare($query);
